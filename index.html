@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>莊敬高職 新生資料建置｜音樂科</title>
+<title>新生資料建置｜音樂科</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -282,15 +282,40 @@ tbody tr:hover{background:#fbf6ea;}
       <div><label class="first">父親行動電話</label><input type="tel" id="f_fatherPhone"/></div>
     </div>
     <div class="row2">
-      <div><label>母親姓名</label><input type="text" id="f_motherName" placeholder="（無或不適用可填「無」）"/></div>
-      <div><label>母親行動電話</label><input type="tel" id="f_motherPhone"/></div>
+      <div><label>父親職業</label><input type="text" id="f_fatherJob"/></div>
+      <div>
+        <label>父親狀態</label>
+        <select id="f_fatherStatus"><option value="">請選擇</option><option>存</option><option>歿</option></select>
+      </div>
     </div>
+    <hr class="divider"/>
+    <div class="row2">
+      <div><label class="first">母親姓名</label><input type="text" id="f_motherName" placeholder="（無或不適用可填「無」）"/></div>
+      <div><label class="first">母親行動電話</label><input type="tel" id="f_motherPhone"/></div>
+    </div>
+    <div class="row2">
+      <div><label>母親職業</label><input type="text" id="f_motherJob"/></div>
+      <div>
+        <label>母親狀態</label>
+        <select id="f_motherStatus"><option value="">請選擇</option><option>存</option><option>歿</option></select>
+      </div>
+    </div>
+    <hr class="divider"/>
+    <label class="first">家庭關係狀況</label>
+    <select id="f_familyStatus">
+      <option value="">請選擇</option>
+      <option>同住</option>
+      <option>離婚</option>
+      <option>分居</option>
+      <option>單親</option>
+      <option>其他</option>
+    </select>
   </div>
 
-  <!-- ⑤ 監護人 -->
+  <!-- ⑤ 監護人／緊急聯絡人 -->
   <div class="card">
-    <div class="step-eyebrow"><span class="step-num">5</span><h2>法定監護人資訊</h2></div>
-    <div class="hint" style="margin-bottom:14px;">如與父親或母親相同，仍請完整填寫。</div>
+    <div class="step-eyebrow"><span class="step-num">5</span><h2>法定監護人／緊急聯絡人資訊</h2></div>
+    <div class="hint" style="margin-bottom:14px;">監護人與緊急聯絡人合併為同一位聯絡對象，如與父親或母親相同，仍請完整填寫。</div>
     <div class="row2">
       <div><label class="first">監護人姓名</label><input type="text" id="f_guardianName"/></div>
       <div><label class="first">監護人稱謂</label><input type="text" id="f_guardianRelation" placeholder="父、母、祖父…"/></div>
@@ -302,24 +327,9 @@ tbody tr:hover{background:#fbf6ea;}
     </div>
   </div>
 
-  <!-- ⑥ 緊急聯絡人 -->
+  <!-- ⑥ 大頭照 -->
   <div class="card">
-    <div class="step-eyebrow"><span class="step-num">6</span><h2>緊急聯絡人資訊</h2></div>
-    <div class="hint" style="margin-bottom:14px;">建議填寫與監護人不同的第二位大人，以確保緊急時能聯繫到人。</div>
-    <div class="row2">
-      <div><label class="first">緊急聯絡人姓名</label><input type="text" id="f_emergencyName"/></div>
-      <div><label class="first">緊急聯絡人稱謂</label><input type="text" id="f_emergencyRelation"/></div>
-    </div>
-    <div class="row3">
-      <div><label>緊急聯絡人職業</label><input type="text" id="f_emergencyJob"/></div>
-      <div><label>緊急聯絡人住宅電話</label><input type="tel" id="f_emergencyHomePhone"/></div>
-      <div><label>緊急聯絡人行動電話</label><input type="tel" id="f_emergencyMobile"/></div>
-    </div>
-  </div>
-
-  <!-- ⑦ 大頭照 -->
-  <div class="card">
-    <div class="step-eyebrow"><span class="step-num">7</span><h2>大頭照上傳</h2></div>
+    <div class="step-eyebrow"><span class="step-num">6</span><h2>大頭照上傳</h2></div>
     <div class="subtle">請上傳一張正面生活照或證件照，方便老師更認識你。</div>
     <div class="photo-upload" style="margin-top:14px;">
       <div class="photo-preview" id="photoPreview">尚未上傳</div>
@@ -332,7 +342,7 @@ tbody tr:hover{background:#fbf6ea;}
 
   <!-- ⑧ 音樂背景 -->
   <div class="card">
-    <div class="step-eyebrow"><span class="step-num">8</span><h2>音樂背景</h2></div>
+    <div class="step-eyebrow"><span class="step-num">7</span><h2>音樂背景</h2></div>
     <div class="row2">
       <div>
         <label class="first">主修樂器</label>
@@ -355,7 +365,7 @@ tbody tr:hover{background:#fbf6ea;}
 
   <!-- ⑨ 主副修志願序 -->
   <div class="card">
-    <div class="step-eyebrow"><span class="step-num">9</span><h2>主副修老師志願序</h2></div>
+    <div class="step-eyebrow"><span class="step-num">8</span><h2>主副修老師志願序</h2></div>
     <div class="subtle">依你的主修／副修樂器，選擇授課老師志願序（各 3 個志願，依偏好排序）。</div>
 
     <div class="pref-block">
@@ -376,7 +386,7 @@ tbody tr:hover{background:#fbf6ea;}
 
   <!-- ⑩ 生活資訊 -->
   <div class="card">
-    <div class="step-eyebrow"><span class="step-num">10</span><h2>生活資訊</h2></div>
+    <div class="step-eyebrow"><span class="step-num">9</span><h2>生活資訊</h2></div>
     <label class="first">本學期是否要住宿？</label>
     <div class="yn">
       <label><input type="radio" name="f_dorm" value="是"/>是</label>
@@ -395,7 +405,7 @@ tbody tr:hover{background:#fbf6ea;}
 
   <!-- ⑪ 手足狀況 -->
   <div class="card">
-    <div class="step-eyebrow"><span class="step-num">11</span><h2>手足狀況</h2></div>
+    <div class="step-eyebrow"><span class="step-num">10</span><h2>手足狀況</h2></div>
     <label class="first">你在兄弟姊妹中排行第幾？</label>
     <input type="text" id="f_siblingOrder" style="max-width:200px;"/>
 
@@ -414,7 +424,7 @@ tbody tr:hover{background:#fbf6ea;}
 
   <!-- ⑬ 確認並送出 -->
   <div class="card">
-    <div class="step-eyebrow"><span class="step-num">12</span><h2>確認並送出</h2></div>
+    <div class="step-eyebrow"><span class="step-num">11</span><h2>確認並送出</h2></div>
     <div class="checkline">
       <input type="checkbox" id="f_confirmedRead"/>
       <label for="f_confirmedRead" style="margin:0;font-weight:400;color:var(--ink-soft);">我已詳細閱讀並確認填寫完所有內容</label>
@@ -474,6 +484,16 @@ tbody tr:hover{background:#fbf6ea;}
       <button class="ghost" onclick="createInstrument()">新增樂器</button>
     </div>
     <div id="instrumentList" style="margin-top:18px;"></div>
+
+    <hr class="divider"/>
+    <strong>批次匯入教師名冊（含樂器）</strong>
+    <div class="hint" style="margin:6px 0 10px;">
+      每行一筆，格式為「樂器,教師姓名」（也可從 Excel／試算表整欄整列直接貼上，會自動辨識逗號或 Tab 分隔）。
+      樂器若尚未建立會自動新增，同一樂器下重複的教師姓名會自動略過。
+    </div>
+    <textarea id="importTeacherText" rows="7" placeholder="鋼琴,王小明&#10;鋼琴,李小華&#10;小提琴,陳大文"></textarea>
+    <div style="margin-top:10px;"><button class="primary" onclick="importTeachers()">匯入</button></div>
+    <div id="importTeacherMsg"></div>
   </div>
 
   <!-- 資料查閱 -->
@@ -493,8 +513,8 @@ tbody tr:hover{background:#fbf6ea;}
           <th>姓名</th><th>性別</th><th>出生日期</th><th>身分證號</th><th>血型</th><th>LINE ID</th>
           <th>畢業國中</th><th>學生電話</th>
           <th>通訊地址</th><th>戶籍地址</th>
-          <th>父親</th><th>母親</th>
-          <th>監護人</th><th>緊急聯絡人</th><th>照片</th>
+          <th>父親</th><th>母親</th><th>家庭關係狀況</th>
+          <th>監護人／緊急聯絡人</th><th>照片</th>
           <th>主修</th><th>主修年資</th><th>主修志願</th>
           <th>副修</th><th>副修志願</th>
           <th>住宿</th><th>通勤</th><th>打工</th>
@@ -676,6 +696,32 @@ function renderInstrumentAdmin(){
       <div class="addrow"><input type="text" id="newTeacher_${instId}" placeholder="新增教師姓名"/><button class="ghost small" onclick="addTeacher('${instId}')">新增</button></div>
     </div>`;
   }).join('');
+}
+
+/* ── 批次匯入教師名冊（含樂器） ── */
+function importTeachers(){
+  const raw = document.getElementById('importTeacherText').value;
+  const msg = document.getElementById('importTeacherMsg');
+  const lines = raw.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  if(!lines.length){ msg.innerHTML='<div class="msg err">請先貼上要匯入的資料。</div>'; return; }
+
+  const rows = [];
+  for(const line of lines){
+    /* 支援逗號或 Tab 分隔（Excel／試算表貼上常為 Tab） */
+    const parts = line.split(/\t|,/).map(s=>s.trim());
+    if(parts.length < 2 || !parts[0] || !parts[1]){ continue; }
+    rows.push({ instrument: parts[0], name: parts[1] });
+  }
+  if(!rows.length){ msg.innerHTML='<div class="msg err">沒有辨識出有效的「樂器,教師姓名」資料列，請確認格式。</div>'; return; }
+
+  showLoading(true);
+  apiPost({action:'importTeachers',password:adminPasswordCache,rows}).then(res=>{
+    showLoading(false);
+    if(res.error){ msg.innerHTML='<div class="msg err">'+escHtml(res.error)+'</div>'; return; }
+    msg.innerHTML='<div class="msg ok">匯入完成：新增樂器 '+res.addedInstruments+' 項、新增教師 '+res.addedTeachers+' 位'+(res.skipped?'（略過重複或格式錯誤 '+res.skipped+' 筆）':'')+'。</div>';
+    document.getElementById('importTeacherText').value='';
+    loadConfig();
+  }).catch(err=>{ showLoading(false); msg.innerHTML='<div class="msg err">連線失敗：'+escHtml(err.message)+'</div>'; });
 }
 
 /* ── Cohort admin ── */
@@ -891,12 +937,11 @@ function submitStudent(){
     studentPhone:   gv('f_studentPhone'),
     mailZip:        gv('f_mailZip'),   mailCity:gv('f_mailCity'),   mailDistrict:gv('f_mailDistrict'),   mailAddress:gv('f_mailAddress'),
     regZip:         gv('f_regZip'),    regCity:gv('f_regCity'),     regDistrict:gv('f_regDistrict'),     regAddress:gv('f_regAddress'),
-    fatherName:     gv('f_fatherName'), fatherPhone:gv('f_fatherPhone'),
-    motherName:     gv('f_motherName'), motherPhone:gv('f_motherPhone'),
+    fatherName:     gv('f_fatherName'), fatherJob:gv('f_fatherJob'), fatherStatus:document.getElementById('f_fatherStatus').value, fatherPhone:gv('f_fatherPhone'),
+    motherName:     gv('f_motherName'), motherJob:gv('f_motherJob'), motherStatus:document.getElementById('f_motherStatus').value, motherPhone:gv('f_motherPhone'),
+    familyStatus:   document.getElementById('f_familyStatus').value,
     guardianName:   gv('f_guardianName'), guardianRelation:gv('f_guardianRelation'), guardianJob:gv('f_guardianJob'),
     guardianHomePhone:gv('f_guardianHomePhone'), guardianMobile:gv('f_guardianMobile'),
-    emergencyName:  gv('f_emergencyName'), emergencyRelation:gv('f_emergencyRelation'), emergencyJob:gv('f_emergencyJob'),
-    emergencyHomePhone:gv('f_emergencyHomePhone'), emergencyMobile:gv('f_emergencyMobile'),
     majorInstrument: instruments[majorInst]?instruments[majorInst].name:'',
     majorYears:     gv('f_majorYears'),
     secondInstrumentWish:gv('f_secondInstrumentWish'),
@@ -971,10 +1016,10 @@ function renderSubmissions(){
     <td class="mono">${escHtml(r.studentPhone||'')}</td>
     <td>${escHtml([r.mailZip,r.mailCity,r.mailDistrict,r.mailAddress].filter(Boolean).join(' '))}</td>
     <td>${escHtml([r.regZip,r.regCity,r.regDistrict,r.regAddress].filter(Boolean).join(' '))}</td>
-    <td>${escHtml(r.fatherName||'')}<br><span class="mono">${escHtml(r.fatherPhone||'')}</span></td>
-    <td>${escHtml(r.motherName||'')}<br><span class="mono">${escHtml(r.motherPhone||'')}</span></td>
-    <td>${escHtml(r.guardianName||'')}${r.guardianRelation?'（'+escHtml(r.guardianRelation)+'）':''}<br><span class="mono">${escHtml(r.guardianMobile||'')}</span></td>
-    <td>${escHtml(r.emergencyName||'')}${r.emergencyRelation?'（'+escHtml(r.emergencyRelation)+'）':''}<br><span class="mono">${escHtml(r.emergencyMobile||'')}</span></td>
+    <td>${escHtml(r.fatherName||'')}${r.fatherJob?'／'+escHtml(r.fatherJob):''}${r.fatherStatus?'（'+escHtml(r.fatherStatus)+'）':''}<br><span class="mono">${escHtml(r.fatherPhone||'')}</span></td>
+    <td>${escHtml(r.motherName||'')}${r.motherJob?'／'+escHtml(r.motherJob):''}${r.motherStatus?'（'+escHtml(r.motherStatus)+'）':''}<br><span class="mono">${escHtml(r.motherPhone||'')}</span></td>
+    <td>${escHtml(r.familyStatus||'')}</td>
+    <td>${escHtml(r.guardianName||'')}${r.guardianRelation?'（'+escHtml(r.guardianRelation)+'）':''}${r.guardianJob?'／'+escHtml(r.guardianJob):''}<br><span class="mono">${escHtml(r.guardianMobile||r.guardianHomePhone||'')}</span></td>
     <td>${r.photoUrl?'<a href="'+escHtml(r.photoUrl)+'" target="_blank" rel="noopener">查看</a>':'—'}</td>
     <td>${escHtml(r.majorInstrument||'—')}</td>
     <td>${escHtml(r.majorYears||'')}</td>
@@ -1004,10 +1049,10 @@ function exportCSV(){
     ['studentPhone','學生電話'],
     ['mailZip','通訊郵遞區號'],['mailCity','通訊縣市'],['mailDistrict','通訊鄉鎮區'],['mailAddress','通訊地址'],
     ['regZip','戶籍郵遞區號'],['regCity','戶籍縣市'],['regDistrict','戶籍鄉鎮區'],['regAddress','戶籍地址'],
-    ['fatherName','父親姓名'],['fatherPhone','父親電話'],
-    ['motherName','母親姓名'],['motherPhone','母親電話'],
+    ['fatherName','父親姓名'],['fatherJob','父親職業'],['fatherStatus','父親狀態'],['fatherPhone','父親電話'],
+    ['motherName','母親姓名'],['motherJob','母親職業'],['motherStatus','母親狀態'],['motherPhone','母親電話'],
+    ['familyStatus','家庭關係狀況'],
     ['guardianName','監護人姓名'],['guardianRelation','監護人稱謂'],['guardianJob','監護人職業'],['guardianHomePhone','監護人室話'],['guardianMobile','監護人手機'],
-    ['emergencyName','緊急聯絡人姓名'],['emergencyRelation','緊急聯絡人稱謂'],['emergencyJob','緊急聯絡人職業'],['emergencyHomePhone','緊急聯絡人室話'],['emergencyMobile','緊急聯絡人手機'],
     ['photoUrl','照片連結'],
     ['majorInstrument','主修樂器'],['majorYears','主修年資'],['secondInstrumentWish','第二樂器意願'],
     ['competitionExperience','比賽經驗'],['otherTalent','其他專長'],['certifications','證照'],
