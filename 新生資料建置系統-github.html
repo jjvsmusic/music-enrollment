@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>新生資料建置｜音樂科</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#20232b; --ink-soft:#3a3f4b;
+  --paper:#f6f1e6; --paper-raised:#fffdf8; --line:#ddd3ba;
+  --brass:#a9873f; --brass-deep:#8a6d2f;
+  --maroon:#8f3a3a; --maroon-deep:#732c2c;
+  --slate:#3c5a6b; --sage:#4c7a52;
+  --sh:0 1px 2px rgba(32,35,43,.06),0 6px 20px rgba(32,35,43,.06);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+h1,h2,h3{font-family:'Noto Serif TC',serif;letter-spacing:.01em;margin:0;}
+.num{font-family:'Fraunces',serif;}
+
+/* staff decoration */
+.staff{height:34px;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 6px,var(--line) 6px,var(--line) 7px,transparent 7px,transparent 13px);opacity:.9;}
+.staff.tight{height:22px;}
+
+/* header */
+header.top{background:var(--ink);color:var(--paper-raised);padding:22px 20px 0;}
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;max-width:1040px;margin:0 auto;flex-wrap:wrap;}
+.brand{display:flex;align-items:baseline;gap:10px;}
+.brand .clef{font-size:28px;color:var(--brass);line-height:1;}
+.brand h1{font-size:20px;color:var(--paper-raised);}
+.brand small{display:block;font-size:12px;color:#c9c2ab;margin-top:2px;letter-spacing:.04em;}
+nav.tabs{max-width:1040px;margin:14px auto 0;display:flex;gap:2px;}
+nav.tabs button{background:transparent;border:none;color:#cfc8b2;padding:10px 16px;font-family:inherit;font-size:14px;cursor:pointer;border-radius:6px 6px 0 0;letter-spacing:.02em;}
+nav.tabs button.active{background:var(--paper);color:var(--ink);font-weight:700;}
+.stafftop{max-width:1040px;margin:0 auto;}
+
+/* layout */
+main{max-width:920px;margin:0 auto;padding:28px 20px 100px;}
+
+/* cards */
+.card{background:var(--paper-raised);border:1px solid var(--line);border-radius:10px;box-shadow:var(--sh);padding:26px;margin-bottom:22px;}
+.card h2{font-size:19px;margin-bottom:4px;}
+.subtle{color:#6b6555;font-size:13px;}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:8px;}
+.cohort-badge{display:inline-flex;align-items:baseline;gap:6px;background:var(--ink);color:var(--paper-raised);border-radius:999px;padding:6px 16px;font-size:13px;}
+.cohort-badge .num{font-size:18px;color:var(--brass);}
+
+/* step eyebrow */
+.step-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.step-num{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--brass);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:14px;font-weight:700;}
+.step-eyebrow h2{font-size:16.5px;}
+
+/* form fields */
+label{display:block;font-size:13px;font-weight:700;margin:14px 0 6px;color:var(--ink-soft);}
+label.first{margin-top:0;}
+input[type=text],input[type=date],input[type=tel],input[type=email],textarea,select{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:7px;font-size:14.5px;
+  background:var(--paper);color:var(--ink);font-family:inherit;
+}
+textarea{resize:vertical;min-height:72px;}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--slate);outline-offset:1px;}
+.hint{font-size:12px;color:#847d68;margin-top:5px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+@media(max-width:640px){.row2,.row3,.row4{grid-template-columns:1fr;}}
+.divider{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+/* yes/no radio */
+.yn{display:flex;gap:18px;margin-top:4px;}
+.yn label{display:flex;align-items:center;gap:6px;font-weight:400;font-size:14px;margin:0;color:var(--ink);}
+.yn input{width:auto;}
+
+/* conditional box */
+.cond-box{background:#faf6ee;border:1px solid var(--brass);border-radius:7px;padding:14px 14px 6px;margin-top:10px;}
+.cond-box label.first{margin-top:0;}
+
+/* photo */
+.photo-upload{display:flex;align-items:center;gap:16px;margin-top:8px;}
+.photo-preview{width:88px;height:110px;border-radius:6px;border:1px solid var(--line);background:var(--paper);display:flex;align-items:center;justify-content:center;overflow:hidden;color:#a89f86;font-size:11px;text-align:center;}
+.photo-preview img{width:100%;height:100%;object-fit:cover;}
+
+/* checkbox */
+.checkline{display:flex;align-items:flex-start;gap:8px;margin-top:6px;font-size:13.5px;}
+.checkline input{margin-top:3px;}
+
+/* pref rank */
+.pref-block{border:1px solid var(--line);border-radius:8px;padding:16px;margin-top:8px;background:var(--paper);}
+.pref-block h3{font-size:14.5px;margin-bottom:2px;}
+.rank-rows{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
+.rank-row{display:flex;align-items:center;gap:12px;}
+.note-badge{flex:0 0 auto;width:30px;height:24px;position:relative;}
+.note-badge .head{width:16px;height:12px;background:var(--maroon);border-radius:60% 60% 55% 55%;transform:rotate(-18deg);position:absolute;left:0;bottom:0;}
+.note-badge .stem{width:2px;height:22px;background:var(--maroon);position:absolute;right:6px;top:0;}
+.note-badge span{position:absolute;left:2px;bottom:1px;width:16px;height:12px;text-align:center;font-size:9px;color:#fff;font-weight:700;line-height:12px;transform:rotate(-18deg);}
+.rank-row select{flex:1;}
+
+/* notice board (student view) */
+.notice-card{background:#fffbe6;border:2px solid var(--brass);border-radius:10px;padding:20px 24px;margin-bottom:22px;}
+.notice-card .notice-title{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--brass-deep);font-size:15px;margin-bottom:10px;}
+.notice-card .notice-title .icon{font-size:20px;}
+.notice-body{white-space:pre-wrap;font-size:14px;color:var(--ink);line-height:1.8;}
+
+/* buttons */
+button.primary{background:var(--maroon);color:#fff;border:none;padding:13px 22px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.02em;}
+button.primary:hover{background:var(--maroon-deep);}
+button.primary:disabled{background:#b6a99f;cursor:not-allowed;}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);padding:9px 16px;border-radius:7px;font-size:13.5px;cursor:pointer;}
+button.ghost:hover{border-color:var(--ink);}
+button.small{padding:6px 11px;font-size:12.5px;}
+button.danger{color:var(--maroon);border-color:var(--maroon);}
+button.link{background:none;border:none;color:var(--slate);font-size:12.5px;cursor:pointer;text-decoration:underline;padding:0;}
+
+/* messages */
+.msg{padding:12px 14px;border-radius:7px;font-size:13.5px;margin-top:14px;}
+.msg.ok{background:#e9f1e7;color:var(--sage);border:1px solid #c9dcc4;}
+.msg.err{background:#f5e6e3;color:var(--maroon-deep);border:1px solid #e3c3bb;}
+
+/* admin */
+.loginwrap{max-width:380px;margin:60px auto;}
+.adm-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.adm-tabs button{background:var(--paper-raised);border:1px solid var(--line);padding:8px 14px;border-radius:999px;font-size:13.5px;cursor:pointer;color:var(--ink-soft);}
+.adm-tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* data table */
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+thead th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:#8a836e;border-bottom:2px solid var(--line);padding:7px 8px;white-space:nowrap;}
+tbody td{padding:8px;border-bottom:1px solid #eee5d0;vertical-align:top;}
+tbody tr:hover{background:#fbf6ea;}
+.pill{display:inline-block;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11px;margin:1px 3px 1px 0;}
+.pill.g1{background:#f4e6d8;border-color:var(--brass);color:var(--brass-deep);}
+
+/* teacher chips */
+.teacher-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.teacher-chip{display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 8px 6px 14px;font-size:13px;}
+.teacher-chip button{background:none;border:none;color:var(--maroon);cursor:pointer;font-size:14px;padding:0 4px;}
+.inst-block{border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;background:var(--paper-raised);}
+.inst-head{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.addrow{display:flex;gap:8px;margin-top:12px;}
+.addrow input{flex:1;}
+
+/* misc */
+.empty{color:#8a836e;font-size:13.5px;padding:20px 0;text-align:center;}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.stat{font-size:13px;color:var(--ink-soft);}
+.stat b{color:var(--ink);font-family:'Fraunces',serif;font-size:16px;}
+.footer-note{font-size:12px;color:#8a836e;text-align:center;margin-top:40px;}
+.overlay{position:fixed;inset:0;background:rgba(32,35,43,.55);display:flex;align-items:center;justify-content:center;z-index:50;}
+.overlay .box{background:var(--paper-raised);padding:22px 28px;border-radius:10px;font-size:14px;}
+.char-count{font-size:11.5px;color:#8a836e;text-align:right;margin-top:4px;}
+[hidden]{display:none !important;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brandrow">
+    <div class="brand">
+      <span class="clef">𝄞</span>
+      <div>
+        <h1>新生資料建置系統</h1>
+        <small>音樂科・入學資料與主副修志願序登記</small>
+      </div>
+    </div>
+  </div>
+  <nav class="tabs">
+    <button id="tabStudentBtn" class="active" onclick="showTab('student')">學生填寫</button>
+    <button id="tabAdminBtn" onclick="showTab('admin')">管理後台</button>
+  </nav>
+  <div class="stafftop staff tight"></div>
+</header>
+
+<main>
+
+<!-- ══════════ STUDENT VIEW ══════════ -->
+<section id="studentView">
+
+  <!-- 頂部說明 -->
+  <div class="card">
+    <div class="hero">
+      <div>
+        <h2>新生入學資料登記</h2>
+        <div class="subtle">請依序完整填寫以下各項資料，送出前請再次確認志願序順序。</div>
+      </div>
+      <span class="cohort-badge">屆別　<span id="cohortLabelBadge" class="num">—</span></span>
+    </div>
+  </div>
+
+  <!-- ① 基本資料 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">1</span><h2>基本資料</h2></div>
+    <div class="row2">
+      <div><label class="first">學生姓名</label><input type="text" id="f_name"/></div>
+      <div><label class="first">電子郵件地址</label><input type="email" id="f_email" placeholder="school@example.com"/></div>
+    </div>
+    <div class="row3">
+      <div>
+        <label>性別</label>
+        <select id="f_gender"><option value="">請選擇</option><option>男</option><option>女</option></select>
+      </div>
+      <div><label>出生年月日</label><input type="date" id="f_birthDate"/></div>
+      <div><label>學生身份證號</label><input type="text" id="f_nationalId" placeholder="A123456789"/></div>
+    </div>
+    <div class="row2">
+      <div>
+        <label>血型</label>
+        <select id="f_bloodType">
+          <option value="">請選擇</option>
+          <option>A</option><option>B</option><option>O</option><option>AB</option><option>不清楚</option>
+        </select>
+        <div class="hint">緊急醫療時使用</div>
+      </div>
+      <div><label>學生 LINE ID</label><input type="text" id="f_lineId" placeholder="your_line_id"/></div>
+    </div>
+
+    <label>特殊身分（原住民／新住民子女／低收入戶／身障及身障子女等，請詳填族別、國籍等細項；無則免填）</label>
+    <textarea id="f_specialStatus" rows="2"></textarea>
+
+    <label>有無特殊疾病或慢性病？</label>
+    <div class="yn">
+      <label><input type="radio" name="f_hasIllness" value="無" onchange="toggleIllness(this)"/>無</label>
+      <label><input type="radio" name="f_hasIllness" value="有" onchange="toggleIllness(this)"/>有</label>
+    </div>
+    <!-- 勾選「有」才顯示 -->
+    <div id="illnessDetailWrap" hidden>
+      <div class="cond-box">
+        <label class="first">請簡述疾病名稱、注意事項或緊急處置方式（學校留存備查）</label>
+        <textarea id="f_illnessDetail" rows="3" placeholder="例：氣喘，隨身攜帶擴張劑；對青黴素過敏…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 學歷與入學 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">2</span><h2>學歷與入學資訊</h2></div>
+    <div class="row3">
+      <div><label class="first">畢業國中</label><input type="text" id="f_juniorHighSchool"/></div>
+      <div><label class="first">簡述會考成績</label><input type="text" id="f_examScoreNote" placeholder="例：5A1B、積點 55…"/></div>
+      
+    </div>
+  </div>
+
+  <!-- ③ 聯絡方式與地址 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">3</span><h2>聯絡方式與地址</h2></div>
+    <label class="first">學生行動電話</label>
+    <input type="tel" id="f_studentPhone" style="max-width:260px;"/>
+
+    <hr class="divider"/>
+    <strong>通訊地址</strong>
+    <div class="row4" style="margin-top:10px;">
+      <div><label class="first">郵遞區號</label><input type="text" id="f_mailZip" style="max-width:120px;"/></div>
+      <div><label class="first">縣／市</label><input type="text" id="f_mailCity"/></div>
+      <div><label class="first">鄉／鎮／市／區</label><input type="text" id="f_mailDistrict"/></div>
+      <div><label class="first">詳細地址</label><input type="text" id="f_mailAddress"/></div>
+    </div>
+
+    <hr class="divider"/>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <strong>戶籍地址</strong>
+      <button type="button" class="link" onclick="copyMailToReg()">與通訊地址相同 →</button>
+    </div>
+    <div class="row4" style="margin-top:10px;">
+      <div><label class="first">郵遞區號</label><input type="text" id="f_regZip" style="max-width:120px;"/></div>
+      <div><label class="first">縣／市</label><input type="text" id="f_regCity"/></div>
+      <div><label class="first">鄉／鎮／市／區</label><input type="text" id="f_regDistrict"/></div>
+      <div><label class="first">詳細地址</label><input type="text" id="f_regAddress"/></div>
+    </div>
+  </div>
+
+  <!-- ④ 父母資訊 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">4</span><h2>父母資訊</h2></div>
+    <div class="hint" style="margin-bottom:14px;">學校與家庭聯繫的基本依據，請盡量填寫雙方資料。</div>
+    <div class="row2">
+      <div><label class="first">父親姓名</label><input type="text" id="f_fatherName" placeholder="（無或不適用可填「無」）"/></div>
+      <div><label class="first">父親行動電話</label><input type="tel" id="f_fatherPhone"/></div>
+    </div>
+    <div class="row2">
+      <div><label>母親姓名</label><input type="text" id="f_motherName" placeholder="（無或不適用可填「無」）"/></div>
+      <div><label>母親行動電話</label><input type="tel" id="f_motherPhone"/></div>
+    </div>
+  </div>
+
+  <!-- ⑤ 監護人 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">5</span><h2>法定監護人資訊</h2></div>
+    <div class="hint" style="margin-bottom:14px;">如與父親或母親相同，仍請完整填寫。</div>
+    <div class="row2">
+      <div><label class="first">監護人姓名</label><input type="text" id="f_guardianName"/></div>
+      <div><label class="first">監護人稱謂</label><input type="text" id="f_guardianRelation" placeholder="父、母、祖父…"/></div>
+    </div>
+    <div class="row3">
+      <div><label>監護人職業</label><input type="text" id="f_guardianJob"/></div>
+      <div><label>監護人住宅電話</label><input type="tel" id="f_guardianHomePhone"/></div>
+      <div><label>監護人行動電話</label><input type="tel" id="f_guardianMobile"/></div>
+    </div>
+  </div>
+
+  <!-- ⑥ 緊急聯絡人 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">6</span><h2>緊急聯絡人資訊</h2></div>
+    <div class="hint" style="margin-bottom:14px;">建議填寫與監護人不同的第二位大人，以確保緊急時能聯繫到人。</div>
+    <div class="row2">
+      <div><label class="first">緊急聯絡人姓名</label><input type="text" id="f_emergencyName"/></div>
+      <div><label class="first">緊急聯絡人稱謂</label><input type="text" id="f_emergencyRelation"/></div>
+    </div>
+    <div class="row3">
+      <div><label>緊急聯絡人職業</label><input type="text" id="f_emergencyJob"/></div>
+      <div><label>緊急聯絡人住宅電話</label><input type="tel" id="f_emergencyHomePhone"/></div>
+      <div><label>緊急聯絡人行動電話</label><input type="tel" id="f_emergencyMobile"/></div>
+    </div>
+  </div>
+
+  <!-- ⑦ 大頭照 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">7</span><h2>大頭照上傳</h2></div>
+    <div class="subtle">請上傳一張正面生活照或證件照，方便老師更認識你。</div>
+    <div class="photo-upload" style="margin-top:14px;">
+      <div class="photo-preview" id="photoPreview">尚未上傳</div>
+      <div>
+        <input type="file" id="f_photo" accept="image/*" onchange="onPhotoChange(event)"/>
+        <div class="hint">建議 5 MB 以內，JPG／PNG 格式。照片將儲存於學校 Google Drive。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑧ 音樂背景 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">8</span><h2>音樂背景</h2></div>
+    <div class="row2">
+      <div>
+        <label class="first">主修樂器</label>
+        <select id="majorInstrument" onchange="onInstrumentChange('major')"></select>
+      </div>
+      <div><label class="first">主修樂器學習時長</label><input type="text" id="f_majorYears" placeholder="例：5 年"/></div>
+    </div>
+    <label>第二項樂器（若只學習一樣樂器，請填寫「想學」的第二樣）</label>
+    <input type="text" id="f_secondInstrumentWish"/>
+
+    <label>有無參加過音樂比賽？</label>
+    <input type="text" id="f_competitionExperience" placeholder="無，或簡述比賽名稱與成果"/>
+
+    <label>有無音樂以外之專長</label>
+    <input type="text" id="f_otherTalent" placeholder="無，或簡述"/>
+
+    <label>有無任何證照（音樂或其他）</label>
+    <input type="text" id="f_certifications" placeholder="無，或填寫證照名稱"/>
+  </div>
+
+  <!-- ⑨ 主副修志願序 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">9</span><h2>主副修老師志願序</h2></div>
+    <div class="subtle">依你的主修／副修樂器，選擇授課老師志願序（各 3 個志願，依偏好排序）。</div>
+
+    <div class="pref-block">
+      <h3>主修</h3>
+      <div class="hint">依上方所選主修樂器自動帶入教師名單</div>
+      <div class="rank-rows" id="majorRanks"></div>
+    </div>
+
+    <div class="pref-block">
+      <h3>副修</h3>
+      <label class="first">副修樂器</label>
+      <select id="minorInstrument" onchange="onInstrumentChange('minor')">
+        <option value="">尚未決定／無</option>
+      </select>
+      <div class="rank-rows" id="minorRanks"></div>
+    </div>
+  </div>
+
+  <!-- ⑩ 生活資訊 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">10</span><h2>生活資訊</h2></div>
+    <label class="first">本學期是否要住宿？</label>
+    <div class="yn">
+      <label><input type="radio" name="f_dorm" value="是"/>是</label>
+      <label><input type="radio" name="f_dorm" value="否"/>否</label>
+    </div>
+
+    <label>開學後如何通勤到校？預計搭乘時間？</label>
+    <input type="text" id="f_commute" placeholder="例：搭公車約 40 分鐘"/>
+
+    <label>開學後是否會打工</label>
+    <div class="yn">
+      <label><input type="radio" name="f_partTimeJob" value="是"/>是</label>
+      <label><input type="radio" name="f_partTimeJob" value="否"/>否</label>
+    </div>
+  </div>
+
+  <!-- ⑪ 手足狀況 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">11</span><h2>手足狀況</h2></div>
+    <label class="first">你在兄弟姊妹中排行第幾？</label>
+    <input type="text" id="f_siblingOrder" style="max-width:200px;"/>
+
+    <label>兄弟姊妹就讀學校／科系－年級（職業／公司）（沒有請填「無」）</label>
+    <input type="text" id="f_sibling1" placeholder="手足 1"/>
+    <input type="text" id="f_sibling2" placeholder="手足 2（選填）" style="margin-top:8px;"/>
+    <input type="text" id="f_sibling3" placeholder="手足 3（選填）" style="margin-top:8px;"/>
+    <input type="text" id="f_sibling4" placeholder="手足 4（選填）" style="margin-top:8px;"/>
+  </div>
+
+  <!-- ⑫ 管理員公告訊息（有內容才顯示） -->
+  <div id="noticeBoardCard" class="notice-card" hidden>
+    <div class="notice-title"><span class="icon">📢</span>管理組公告</div>
+    <div class="notice-body" id="noticeBoardBody"></div>
+  </div>
+
+  <!-- ⑬ 確認並送出 -->
+  <div class="card">
+    <div class="step-eyebrow"><span class="step-num">12</span><h2>確認並送出</h2></div>
+    <div class="checkline">
+      <input type="checkbox" id="f_confirmedRead"/>
+      <label for="f_confirmedRead" style="margin:0;font-weight:400;color:var(--ink-soft);">我已詳細閱讀並確認填寫完所有內容</label>
+    </div>
+    <div style="margin-top:20px;">
+      <button class="primary" id="submitBtn" onclick="submitStudent()">送出資料</button>
+    </div>
+    <div id="studentMsg"></div>
+  </div>
+
+  <div class="footer-note">若填寫過程中發現老師名單不完整，請聯繫音樂科管理組。</div>
+</section>
+
+<!-- ══════════ ADMIN LOGIN ══════════ -->
+<section id="adminLogin" hidden>
+  <div class="loginwrap card">
+    <h2 style="margin-bottom:14px;">管理後台登入</h2>
+    <label class="first">管理密碼</label>
+    <input type="password" id="adminPass" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')adminLogin()"/>
+    <div style="margin-top:16px;"><button class="primary" onclick="adminLogin()">登入</button></div>
+    <div id="loginMsg"></div>
+  </div>
+</section>
+
+<!-- ══════════ ADMIN VIEW ══════════ -->
+<section id="adminView" hidden>
+  <div class="toolbar">
+    <div class="adm-tabs">
+      <button id="admTabCohort"   class="active" onclick="showAdminTab('cohort')">屆別管理</button>
+      <button id="admTabTeacher"  onclick="showAdminTab('teacher')">教師名單</button>
+      <button id="admTabData"     onclick="showAdminTab('data')">資料查閱</button>
+      <button id="admTabNotice"   onclick="showAdminTab('notice')">公告訊息</button>
+      <button id="admTabPass"     onclick="showAdminTab('pass')">變更密碼</button>
+    </div>
+    <button class="ghost small" onclick="adminLogout()">登出</button>
+  </div>
+
+  <!-- 屆別管理 -->
+  <div id="admCohort" class="card">
+    <h2>目前作業屆別</h2>
+    <div class="subtle">系統依日期自動預設屆別，也可在此手動切換。</div>
+    <label class="first">目前屆別</label>
+    <select id="activeCohortSelect" onchange="setActiveCohort(this.value)"></select>
+    <div class="addrow">
+      <input type="text" id="newCohortLabel" placeholder="新增屆別（例如：115學年度新生）"/>
+      <button class="ghost" onclick="createCohort()">新增屆別</button>
+    </div>
+    <div id="cohortMsg"></div>
+  </div>
+
+  <!-- 教師名單 -->
+  <div id="admTeacher" class="card" hidden>
+    <h2>樂器與教師名單</h2>
+    <div class="subtle">學生填寫志願序時，會依此處設定的樂器與教師名單顯示選項。</div>
+    <div class="addrow">
+      <input type="text" id="newInstrument" placeholder="新增樂器（例如：長笛）"/>
+      <button class="ghost" onclick="createInstrument()">新增樂器</button>
+    </div>
+    <div id="instrumentList" style="margin-top:18px;"></div>
+  </div>
+
+  <!-- 資料查閱 -->
+  <div id="admData" class="card" hidden>
+    <div class="toolbar">
+      <h2 style="margin:0;">已登記資料</h2>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <select id="dataCohortSelect" onchange="loadSubmissions()"></select>
+        <button class="ghost small" onclick="exportCSV()">匯出 CSV</button>
+      </div>
+    </div>
+    <div class="stat" id="dataStat" style="margin-bottom:12px;"></div>
+    <input type="text" id="dataSearch" placeholder="搜尋姓名 ／ 身分證號 ／ 電話" oninput="renderSubmissions()" style="margin-bottom:14px;"/>
+    <div style="overflow-x:auto;max-height:70vh;overflow-y:auto;">
+      <table>
+        <thead><tr>
+          <th>姓名</th><th>性別</th><th>出生日期</th><th>身分證號</th><th>血型</th><th>LINE ID</th>
+          <th>畢業國中</th><th>學生電話</th>
+          <th>通訊地址</th><th>戶籍地址</th>
+          <th>父親</th><th>母親</th>
+          <th>監護人</th><th>緊急聯絡人</th><th>照片</th>
+          <th>主修</th><th>主修年資</th><th>主修志願</th>
+          <th>副修</th><th>副修志願</th>
+          <th>住宿</th><th>通勤</th><th>打工</th>
+          <th>送出時間</th>
+        </tr></thead>
+        <tbody id="dataTbody"></tbody>
+      </table>
+    </div>
+    <div id="dataEmpty" class="empty" hidden>此屆別目前尚無登記資料</div>
+  </div>
+
+  <!-- 公告訊息編輯 -->
+  <div id="admNotice" class="card" hidden>
+    <h2>公告訊息</h2>
+    <div class="subtle">此處填寫的內容將顯示在學生填寫頁最下方（送出鍵的上方）。可用來告知學生填表注意事項、繳件期限、報到地點等。不填則不顯示。</div>
+    <label class="first">公告內容</label>
+    <textarea id="adminNoticeInput" rows="8" placeholder="請輸入要告知學生的公告訊息…" oninput="updateNoticeCharCount()"></textarea>
+    <div class="char-count" id="noticeCharCount">0 字</div>
+    <div style="margin-top:14px;display:flex;gap:10px;align-items:center;">
+      <button class="primary" onclick="saveNotice()">儲存並發布</button>
+      <button class="ghost" onclick="clearNotice()">清除公告</button>
+    </div>
+    <div id="noticeMsg"></div>
+
+    <hr class="divider"/>
+    <strong>預覽（學生看到的樣子）</strong>
+    <div id="noticePreviewWrap" style="margin-top:12px;">
+      <div class="notice-card">
+        <div class="notice-title"><span class="icon">📢</span>管理組公告</div>
+        <div class="notice-body" id="noticePreviewBody">（尚無內容）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 變更密碼 -->
+  <div id="admPass" class="card" hidden>
+    <h2>變更管理密碼</h2>
+    <label class="first">新密碼</label>
+    <input type="password" id="newAdminPass"/>
+    <div style="margin-top:14px;"><button class="ghost" onclick="changeAdminPassword()">更新密碼</button></div>
+    <div id="passMsg"></div>
+  </div>
+
+</section>
+
+</main>
+
+<div id="loadingOverlay" class="overlay" hidden><div class="box">處理中，請稍候…</div></div>
+
+<script>
+/* ▼▼▼ 請將下方網址替換為你的 Apps Script 部署網址 ▼▼▼
+   取得方式：Apps Script → 部署 → 管理部署作業 → 複製「網頁應用程式」網址
+   格式：https://script.google.com/macros/s/XXXXXX/exec
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP3zKXHEinmXcv8vOvIUBRD4s9BDDbuptmXHF2BJBe41qNMbBt_Zq2ByoJqrg1ANUs8g/exec";
+/* ▲▲▲ 填完後存檔，上傳到 GitHub Pages 即可使用 ▲▲▲ */
+
+let instruments = {}, teachers = {}, cohorts = {}, activeCohortId = null;
+let submissionsCache = [];
+let adminPasswordCache = '';
+let photoBase64 = '', photoMimeType = '';
+
+/* ── API helpers ── */
+function apiGet(params){
+  const qs = Object.keys(params).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(params[k])).join('&');
+  return fetch(APPS_SCRIPT_URL+'?'+qs).then(r=>r.json());
+}
+function apiPost(payload){
+  return fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(payload)
+  }).then(r=>r.json());
+}
+function showLoading(v){ document.getElementById('loadingOverlay').hidden=!v; }
+
+/* ── Tabs ── */
+function showTab(which){
+  document.getElementById('studentView').hidden = which!=='student';
+  const ok = sessionStorage.getItem('isAdmin')==='1';
+  document.getElementById('adminLogin').hidden = which!=='admin'||ok;
+  document.getElementById('adminView').hidden  = which!=='admin'||!ok;
+  document.getElementById('tabStudentBtn').classList.toggle('active', which==='student');
+  document.getElementById('tabAdminBtn').classList.toggle('active',  which==='admin');
+  if(which==='admin'&&ok) refreshAdminSelectors();
+}
+
+const ADM_TABS = ['cohort','teacher','data','notice','pass'];
+function showAdminTab(which){
+  ADM_TABS.forEach(t=>{
+    const el  = document.getElementById('adm'+cap(t));
+    const btn = document.getElementById('admTab'+cap(t));
+    if(el)  el.hidden = (t!==which);
+    if(btn) btn.classList.toggle('active', t===which);
+  });
+  if(which==='data')   loadSubmissions();
+  if(which==='notice') loadNoticeEditor();
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+/* ── Admin auth ── */
+function adminLogin(){
+  const val = document.getElementById('adminPass').value;
+  showLoading(true);
+  apiPost({action:'adminLogin',password:val}).then(res=>{
+    showLoading(false);
+    if(res.ok){
+      adminPasswordCache=val;
+      sessionStorage.setItem('isAdmin','1');
+      sessionStorage.setItem('adminPw',val);
+      document.getElementById('adminPass').value='';
+      showTab('admin');
+    } else {
+      document.getElementById('loginMsg').innerHTML='<div class="msg err">密碼錯誤，請再試一次。</div>';
+    }
+  }).catch(err=>{ showLoading(false); document.getElementById('loginMsg').innerHTML='<div class="msg err">連線失敗：'+escHtml(err.message)+'</div>'; });
+}
+function adminLogout(){
+  sessionStorage.removeItem('isAdmin');
+  sessionStorage.removeItem('adminPw');
+  showTab('student');
+}
+adminPasswordCache = sessionStorage.getItem('adminPw')||'';
+
+/* ── Load config ── */
+function loadConfig(){
+  return apiGet({action:'config'}).then(cfg=>{
+    instruments   = cfg.instruments  || {};
+    teachers      = cfg.teachers     || {};
+    cohorts       = cfg.cohorts      || {};
+    activeCohortId= cfg.activeCohort;
+    const label   = (cohorts[activeCohortId]&&cohorts[activeCohortId].label)||(activeCohortId+' 學年度新生');
+    document.getElementById('cohortLabelBadge').textContent = label;
+
+    /* 公告訊息 */
+    const notice = (cfg.noticeBoard||'').trim();
+    const card   = document.getElementById('noticeBoardCard');
+    const body   = document.getElementById('noticeBoardBody');
+    card.hidden  = !notice;
+    body.textContent = notice;
+
+    populateInstrumentSelects();
+    renderInstrumentAdmin();
+    refreshAdminSelectors();
+  });
+}
+
+/* ── Instrument / teacher admin ── */
+function createInstrument(){
+  const inp=document.getElementById('newInstrument'); const n=inp.value.trim(); if(!n)return;
+  showLoading(true);
+  apiPost({action:'addInstrument',password:adminPasswordCache,name:n}).then(()=>{inp.value='';return loadConfig();}).finally(()=>showLoading(false));
+}
+function removeInstrument(id){
+  if(!confirm('確定要刪除此樂器及其教師名單嗎？'))return;
+  showLoading(true);
+  apiPost({action:'removeInstrument',password:adminPasswordCache,instrumentId:id}).then(loadConfig).finally(()=>showLoading(false));
+}
+function addTeacher(instId){
+  const inp=document.getElementById('newTeacher_'+instId); const n=inp.value.trim(); if(!n)return;
+  showLoading(true);
+  apiPost({action:'addTeacher',password:adminPasswordCache,instrumentId:instId,name:n}).then(loadConfig).finally(()=>showLoading(false));
+}
+function removeTeacher(tid){
+  showLoading(true);
+  apiPost({action:'removeTeacher',password:adminPasswordCache,teacherId:tid}).then(loadConfig).finally(()=>showLoading(false));
+}
+function renderInstrumentAdmin(){
+  const wrap=document.getElementById('instrumentList'); if(!wrap)return;
+  const ids=Object.keys(instruments);
+  if(!ids.length){ wrap.innerHTML='<div class="empty">尚未新增任何樂器</div>'; return; }
+  wrap.innerHTML=ids.map(instId=>{
+    const inst=instruments[instId];
+    const tList=teachers[instId]||{};
+    const chips=Object.keys(tList).map(tid=>
+      `<span class="teacher-chip">${escHtml(tList[tid].name)}<button onclick="removeTeacher('${tid}')" title="移除">✕</button></span>`
+    ).join('');
+    return `<div class="inst-block">
+      <div class="inst-head"><strong>${escHtml(inst.name)}</strong><button class="ghost small danger" onclick="removeInstrument('${instId}')">刪除樂器</button></div>
+      <div class="teacher-list">${chips||'<span class="subtle">尚無教師</span>'}</div>
+      <div class="addrow"><input type="text" id="newTeacher_${instId}" placeholder="新增教師姓名"/><button class="ghost small" onclick="addTeacher('${instId}')">新增</button></div>
+    </div>`;
+  }).join('');
+}
+
+/* ── Cohort admin ── */
+function refreshAdminSelectors(){
+  const sel=document.getElementById('activeCohortSelect');
+  const dSel=document.getElementById('dataCohortSelect');
+  if(!sel||!dSel)return;
+  const ids=Object.keys(cohorts).sort().reverse();
+  const opts=ids.map(id=>{
+    const lbl=(cohorts[id]&&cohorts[id].label)||(id+' 學年度新生');
+    return `<option value="${id}">${escHtml(lbl)}（${id}）</option>`;
+  }).join('');
+  sel.innerHTML  = opts||'<option value="">（尚無屆別資料）</option>';
+  dSel.innerHTML = opts||'<option value="">（尚無屆別資料）</option>';
+  if(activeCohortId){ sel.value=activeCohortId; if(!dSel.value)dSel.value=activeCohortId; }
+}
+function setActiveCohort(id){
+  if(!id)return;
+  showLoading(true);
+  apiPost({action:'setActiveCohort',password:adminPasswordCache,cohortId:id}).then(res=>{
+    showLoading(false);
+    const msg=document.getElementById('cohortMsg');
+    if(res.error){ msg.innerHTML='<div class="msg err">'+escHtml(res.error)+'</div>'; return; }
+    msg.innerHTML='<div class="msg ok">已切換目前作業屆別。</div>';
+    loadConfig(); setTimeout(()=>{ msg.innerHTML=''; },2500);
+  });
+}
+function createCohort(){
+  const inp=document.getElementById('newCohortLabel'); const lbl=inp.value.trim(); if(!lbl)return;
+  showLoading(true);
+  apiPost({action:'createCohort',password:adminPasswordCache,label:lbl}).then(()=>{inp.value='';return loadConfig();}).finally(()=>showLoading(false));
+}
+function changeAdminPassword(){
+  const val=document.getElementById('newAdminPass').value.trim(); if(!val)return;
+  showLoading(true);
+  apiPost({action:'setAdminPassword',password:adminPasswordCache,newPassword:val}).then(res=>{
+    showLoading(false);
+    const msg=document.getElementById('passMsg');
+    if(res.error){ msg.innerHTML='<div class="msg err">'+escHtml(res.error)+'</div>'; return; }
+    adminPasswordCache=val; sessionStorage.setItem('adminPw',val);
+    document.getElementById('newAdminPass').value='';
+    msg.innerHTML='<div class="msg ok">密碼已更新。</div>';
+  });
+}
+
+/* ── Notice board ── */
+function loadNoticeEditor(){
+  apiGet({action:'config'}).then(cfg=>{
+    const txt=(cfg.noticeBoard||'').trim();
+    document.getElementById('adminNoticeInput').value=txt;
+    document.getElementById('noticePreviewBody').textContent=txt||'（尚無內容）';
+    document.getElementById('noticeCharCount').textContent=txt.length+' 字';
+  });
+}
+function updateNoticeCharCount(){
+  const val=document.getElementById('adminNoticeInput').value;
+  document.getElementById('noticeCharCount').textContent=val.length+' 字';
+  document.getElementById('noticePreviewBody').textContent=val.trim()||'（尚無內容）';
+}
+function saveNotice(){
+  const content=document.getElementById('adminNoticeInput').value.trim();
+  showLoading(true);
+  apiPost({action:'setNoticeBoard',password:adminPasswordCache,content}).then(res=>{
+    showLoading(false);
+    const msg=document.getElementById('noticeMsg');
+    if(res.error){ msg.innerHTML='<div class="msg err">'+escHtml(res.error)+'</div>'; return; }
+    msg.innerHTML='<div class="msg ok">公告已儲存，學生填寫頁將顯示此訊息。</div>';
+    loadConfig();
+    setTimeout(()=>{ msg.innerHTML=''; },3000);
+  });
+}
+function clearNotice(){
+  if(!confirm('確定要清除公告訊息嗎？'))return;
+  document.getElementById('adminNoticeInput').value='';
+  updateNoticeCharCount();
+  saveNotice();
+}
+
+/* ── Student form: instrument selects ── */
+function populateInstrumentSelects(){
+  const mSel=document.getElementById('majorInstrument');
+  const nSel=document.getElementById('minorInstrument');
+  const ids=Object.keys(instruments);
+  const opts=ids.map(id=>`<option value="${id}">${escHtml(instruments[id].name)}</option>`).join('');
+  mSel.innerHTML='<option value="">請選擇</option>'+(opts||'');
+  nSel.innerHTML='<option value="">尚未決定／無</option>'+(opts||'');
+  onInstrumentChange('major'); onInstrumentChange('minor');
+}
+function onInstrumentChange(which){
+  const instId=document.getElementById(which==='major'?'majorInstrument':'minorInstrument').value;
+  const wrap  =document.getElementById(which==='major'?'majorRanks':'minorRanks');
+  if(!instId){ wrap.innerHTML=''; return; }
+  const tList =teachers[instId]||{};
+  const tIds  =Object.keys(tList);
+  const teacherOpts = tIds.map(tid=>`<option value="${tid}">${escHtml(tList[tid].name)}</option>`).join('');
+  /* 固定附加選項 */
+  const extraOpts = `<optgroup label="──────────────">
+      <option value="__office__">由科辦決定</option>
+      <option value="__other__">其他（請填寫）</option>
+    </optgroup>`;
+  const noHint = !tIds.length
+    ? '<div class="hint" style="margin-bottom:10px;">⚠️ 此樂器尚未設定教師名單，請聯繫管理組；仍可選擇下方選項。</div>'
+    : '';
+  wrap.innerHTML = noHint + [1,2,3].map(n=>`
+    <div class="rank-row" style="flex-wrap:wrap;align-items:center;">
+      <div class="note-badge"><div class="stem"></div><div class="head"></div><span>${n}</span></div>
+      <select id="${which}Rank${n}" style="flex:1;" onchange="onRankChange('${which}',${n})">
+        <option value="">－ 第 ${n} 志願 －</option>
+        ${teacherOpts}${extraOpts}
+      </select>
+      <input type="text" id="${which}RankOther${n}"
+        placeholder="請填寫老師姓名" hidden
+        style="width:calc(100% - 42px);margin-left:42px;margin-top:8px;"/>
+    </div>`).join('');
+}
+
+/* 選到「其他」才顯示文字框 */
+function onRankChange(which, n){
+  const val = document.getElementById(which+'Rank'+n).value;
+  document.getElementById(which+'RankOther'+n).hidden = (val !== '__other__');
+}
+
+/* ── 有無疾病 toggle（inline onchange 觸發，100% 可靠） ── */
+function toggleIllness(radio){
+  document.getElementById('illnessDetailWrap').hidden = (radio.value!=='有');
+}
+
+/* ── Address copy ── */
+function copyMailToReg(){
+  ['Zip','City','District','Address'].forEach(f=>{
+    document.getElementById('f_reg'+f).value=document.getElementById('f_mail'+f).value;
+  });
+}
+
+/* ── Photo upload ── */
+function onPhotoChange(e){
+  const file=e.target.files[0]; if(!file)return;
+  if(file.size>8*1024*1024){ alert('檔案過大，請選擇 8 MB 以內的圖片。'); e.target.value=''; return; }
+  photoMimeType=file.type;
+  const reader=new FileReader();
+  reader.onload=evt=>{
+    const url=evt.target.result;
+    photoBase64=url.split(',')[1];
+    document.getElementById('photoPreview').innerHTML='<img src="'+url+'" alt="預覽">';
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ── Collect helpers ── */
+function radio(name){ const el=document.querySelector('input[name="'+name+'"]:checked'); return el?el.value:''; }
+function collectRanks(which){ return [1,2,3].map(n=>{ const el=document.getElementById(which+'Rank'+n); return el?el.value:''; }); }
+function tName(instId,tid){ return(tid&&teachers[instId]&&teachers[instId][tid])?teachers[instId][tid].name:''; }
+
+/* 解析志願值：一般老師 / 由科辦決定 / 其他（取文字框） */
+function resolveRankValue(which, instId, rawVal, n){
+  if(!rawVal) return '';
+  if(rawVal==='__office__') return '由科辦決定';
+  if(rawVal==='__other__'){
+    const el=document.getElementById(which+'RankOther'+n);
+    return el?el.value.trim():'';
+  }
+  return tName(instId, rawVal);
+}
+function gv(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+/* ── Submit ── */
+function submitStudent(){
+  const msg=document.getElementById('studentMsg');
+  const name=gv('f_name');
+  const majorInst=document.getElementById('majorInstrument').value;
+  const minorInst=document.getElementById('minorInstrument').value;
+  const confirmed=document.getElementById('f_confirmedRead').checked;
+
+  if(!name){   msg.innerHTML='<div class="msg err">請填寫學生姓名。</div>'; return; }
+  if(!majorInst){ msg.innerHTML='<div class="msg err">請選擇主修樂器。</div>'; return; }
+  const majorPrefIds=collectRanks('major');
+  if(!majorPrefIds.filter(Boolean).length){ msg.innerHTML='<div class="msg err">請至少選擇一位主修老師志願。</div>'; return; }
+
+  /* 「其他」選項必須填寫文字 */
+  for(let n=1;n<=3;n++){
+    const mSel=document.getElementById('majorRank'+n);
+    if(mSel&&mSel.value==='__other__'){
+      const txt=document.getElementById('majorRankOther'+n);
+      if(!txt||!txt.value.trim()){ msg.innerHTML=`<div class="msg err">主修第 ${n} 志願選擇「其他」時，請填寫老師姓名。</div>`; return; }
+    }
+  }
+  if(minorInst){
+    for(let n=1;n<=3;n++){
+      const nSel=document.getElementById('minorRank'+n);
+      if(nSel&&nSel.value==='__other__'){
+        const txt=document.getElementById('minorRankOther'+n);
+        if(!txt||!txt.value.trim()){ msg.innerHTML=`<div class="msg err">副修第 ${n} 志願選擇「其他」時，請填寫老師姓名。</div>`; return; }
+      }
+    }
+  }
+  if(!confirmed){ msg.innerHTML='<div class="msg err">請勾選確認已詳細閱讀並填寫完所有內容。</div>'; return; }
+
+  const minorPrefIds=minorInst?collectRanks('minor'):[];
+
+  const record={
+    email:          gv('f_email'),
+    name,
+    gender:         document.getElementById('f_gender').value,
+    birthDate:      gv('f_birthDate'),
+    nationalId:     gv('f_nationalId'),
+    bloodType:      document.getElementById('f_bloodType').value,
+    lineId:         gv('f_lineId'),
+    specialStatus:  gv('f_specialStatus'),
+    hasIllness:     radio('f_hasIllness'),
+    illnessDetail:  gv('f_illnessDetail'),
+    examScoreNote:  gv('f_examScoreNote'),
+    juniorHighSchool:gv('f_juniorHighSchool'),
+    studentPhone:   gv('f_studentPhone'),
+    mailZip:        gv('f_mailZip'),   mailCity:gv('f_mailCity'),   mailDistrict:gv('f_mailDistrict'),   mailAddress:gv('f_mailAddress'),
+    regZip:         gv('f_regZip'),    regCity:gv('f_regCity'),     regDistrict:gv('f_regDistrict'),     regAddress:gv('f_regAddress'),
+    fatherName:     gv('f_fatherName'), fatherPhone:gv('f_fatherPhone'),
+    motherName:     gv('f_motherName'), motherPhone:gv('f_motherPhone'),
+    guardianName:   gv('f_guardianName'), guardianRelation:gv('f_guardianRelation'), guardianJob:gv('f_guardianJob'),
+    guardianHomePhone:gv('f_guardianHomePhone'), guardianMobile:gv('f_guardianMobile'),
+    emergencyName:  gv('f_emergencyName'), emergencyRelation:gv('f_emergencyRelation'), emergencyJob:gv('f_emergencyJob'),
+    emergencyHomePhone:gv('f_emergencyHomePhone'), emergencyMobile:gv('f_emergencyMobile'),
+    majorInstrument: instruments[majorInst]?instruments[majorInst].name:'',
+    majorYears:     gv('f_majorYears'),
+    secondInstrumentWish:gv('f_secondInstrumentWish'),
+    competitionExperience:gv('f_competitionExperience'),
+    otherTalent:    gv('f_otherTalent'),
+    certifications: gv('f_certifications'),
+    dorm:           radio('f_dorm'),
+    commute:        gv('f_commute'),
+    partTimeJob:    radio('f_partTimeJob'),
+    siblingOrder:   gv('f_siblingOrder'),
+    sibling1:       gv('f_sibling1'), sibling2:gv('f_sibling2'), sibling3:gv('f_sibling3'), sibling4:gv('f_sibling4'),
+    confirmedRead:  confirmed?'是':'否',
+    majorTeacherPref1: resolveRankValue('major',majorInst,majorPrefIds[0],1),
+    majorTeacherPref2: resolveRankValue('major',majorInst,majorPrefIds[1],2),
+    majorTeacherPref3: resolveRankValue('major',majorInst,majorPrefIds[2],3),
+    minorInstrument: minorInst?(instruments[minorInst]?instruments[minorInst].name:''):'',
+    minorTeacherPref1: resolveRankValue('minor',minorInst,minorPrefIds[0],1),
+    minorTeacherPref2: resolveRankValue('minor',minorInst,minorPrefIds[1],2),
+    minorTeacherPref3: resolveRankValue('minor',minorInst,minorPrefIds[2],3)
+  };
+
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; showLoading(true);
+  const payload={action:'submitStudent',cohortId:activeCohortId,record};
+  if(photoBase64){ payload.photoBase64=photoBase64; payload.photoMimeType=photoMimeType; }
+
+  apiPost(payload).then(res=>{
+    showLoading(false);
+    if(res.error){ msg.innerHTML='<div class="msg err">送出失敗：'+escHtml(res.error)+'</div>'; btn.disabled=false; return; }
+    msg.innerHTML='<div class="msg ok">✅ 資料已成功送出，謝謝你的填寫！</div>';
+    /* 清空表單 */
+    document.getElementById('studentView').querySelectorAll('input[type=text],input[type=email],input[type=tel],input[type=date],textarea').forEach(el=>el.value='');
+    document.getElementById('studentView').querySelectorAll('select').forEach(el=>el.selectedIndex=0);
+    document.getElementById('studentView').querySelectorAll('input[type=checkbox],input[type=radio]').forEach(el=>el.checked=false);
+    document.getElementById('illnessDetailWrap').hidden=true;
+    document.getElementById('photoPreview').innerHTML='尚未上傳';
+    photoBase64=''; photoMimeType='';
+    onInstrumentChange('major'); onInstrumentChange('minor');
+    btn.disabled=false;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(err=>{ showLoading(false); msg.innerHTML='<div class="msg err">連線失敗：'+escHtml(err.message)+'</div>'; btn.disabled=false; });
+}
+
+/* ── Admin data view ── */
+function loadSubmissions(){
+  const cohortId=document.getElementById('dataCohortSelect').value;
+  if(!cohortId){ submissionsCache=[]; renderSubmissions(); return; }
+  showLoading(true);
+  apiGet({action:'submissions',cohort:cohortId,password:adminPasswordCache}).then(res=>{
+    showLoading(false); submissionsCache=res.rows||[]; renderSubmissions();
+  });
+}
+function renderSubmissions(){
+  const tbody=document.getElementById('dataTbody');
+  const empty=document.getElementById('dataEmpty');
+  const stat =document.getElementById('dataStat');
+  const q=(document.getElementById('dataSearch').value||'').trim().toLowerCase();
+  let rows=submissionsCache;
+  if(q) rows=rows.filter(r=>(r.name||'').toLowerCase().includes(q)||(r.nationalId||'').toLowerCase().includes(q)||(r.studentPhone||'').toLowerCase().includes(q));
+  stat.innerHTML='共 <b>'+submissionsCache.length+'</b> 筆　·　符合搜尋 <b>'+rows.length+'</b> 筆';
+  if(!rows.length){ tbody.innerHTML=''; empty.hidden=false; return; }
+  empty.hidden=true;
+  rows=rows.slice().sort((a,b)=>(b.submittedAt||0)-(a.submittedAt||0));
+  tbody.innerHTML=rows.map(r=>`<tr>
+    <td>${escHtml(r.name||'')}</td>
+    <td>${escHtml(r.gender||'')}</td>
+    <td class="mono">${escHtml(r.birthDate||'')}</td>
+    <td class="mono">${escHtml(r.nationalId||'')}</td>
+    <td>${escHtml(r.bloodType||'')}</td>
+    <td class="mono">${escHtml(r.lineId||'')}</td>
+    <td>${escHtml(r.juniorHighSchool||'')}</td>
+    <td class="mono">${escHtml(r.studentPhone||'')}</td>
+    <td>${escHtml([r.mailZip,r.mailCity,r.mailDistrict,r.mailAddress].filter(Boolean).join(' '))}</td>
+    <td>${escHtml([r.regZip,r.regCity,r.regDistrict,r.regAddress].filter(Boolean).join(' '))}</td>
+    <td>${escHtml(r.fatherName||'')}<br><span class="mono">${escHtml(r.fatherPhone||'')}</span></td>
+    <td>${escHtml(r.motherName||'')}<br><span class="mono">${escHtml(r.motherPhone||'')}</span></td>
+    <td>${escHtml(r.guardianName||'')}${r.guardianRelation?'（'+escHtml(r.guardianRelation)+'）':''}<br><span class="mono">${escHtml(r.guardianMobile||'')}</span></td>
+    <td>${escHtml(r.emergencyName||'')}${r.emergencyRelation?'（'+escHtml(r.emergencyRelation)+'）':''}<br><span class="mono">${escHtml(r.emergencyMobile||'')}</span></td>
+    <td>${r.photoUrl?'<a href="'+escHtml(r.photoUrl)+'" target="_blank" rel="noopener">查看</a>':'—'}</td>
+    <td>${escHtml(r.majorInstrument||'—')}</td>
+    <td>${escHtml(r.majorYears||'')}</td>
+    <td>${pills([r.majorTeacherPref1,r.majorTeacherPref2,r.majorTeacherPref3])}</td>
+    <td>${escHtml(r.minorInstrument||'—')}</td>
+    <td>${pills([r.minorTeacherPref1,r.minorTeacherPref2,r.minorTeacherPref3])}</td>
+    <td>${escHtml(r.dorm||'')}</td>
+    <td>${escHtml(r.commute||'')}</td>
+    <td>${escHtml(r.partTimeJob||'')}</td>
+    <td class="mono">${r.submittedAt?new Date(r.submittedAt).toLocaleString('zh-TW'):''}</td>
+  </tr>`).join('');
+}
+function pills(arr){
+  if(!(arr||[]).filter(Boolean).length) return '—';
+  return arr.map((p,i)=>p?`<span class="pill${i===0?' g1':''}">${i+1}. ${escHtml(p)}</span>`:'').join('');
+}
+
+/* ── CSV export ── */
+function exportCSV(){
+  const cohortId=document.getElementById('dataCohortSelect').value;
+  if(!submissionsCache.length){ alert('目前沒有資料可匯出。'); return; }
+  const cols=[
+    ['name','姓名'],['gender','性別'],['birthDate','出生日期'],['nationalId','身分證號'],
+    ['bloodType','血型'],['lineId','LINE ID'],['specialStatus','特殊身分'],
+    ['hasIllness','特殊疾病'],['illnessDetail','疾病說明'],
+    ['examScoreNote','會考成績'],['juniorHighSchool','畢業國中'],
+    ['studentPhone','學生電話'],
+    ['mailZip','通訊郵遞區號'],['mailCity','通訊縣市'],['mailDistrict','通訊鄉鎮區'],['mailAddress','通訊地址'],
+    ['regZip','戶籍郵遞區號'],['regCity','戶籍縣市'],['regDistrict','戶籍鄉鎮區'],['regAddress','戶籍地址'],
+    ['fatherName','父親姓名'],['fatherPhone','父親電話'],
+    ['motherName','母親姓名'],['motherPhone','母親電話'],
+    ['guardianName','監護人姓名'],['guardianRelation','監護人稱謂'],['guardianJob','監護人職業'],['guardianHomePhone','監護人室話'],['guardianMobile','監護人手機'],
+    ['emergencyName','緊急聯絡人姓名'],['emergencyRelation','緊急聯絡人稱謂'],['emergencyJob','緊急聯絡人職業'],['emergencyHomePhone','緊急聯絡人室話'],['emergencyMobile','緊急聯絡人手機'],
+    ['photoUrl','照片連結'],
+    ['majorInstrument','主修樂器'],['majorYears','主修年資'],['secondInstrumentWish','第二樂器意願'],
+    ['competitionExperience','比賽經驗'],['otherTalent','其他專長'],['certifications','證照'],
+    ['dorm','住宿'],['commute','通勤'],['partTimeJob','打工'],
+    ['siblingOrder','手足排行'],['sibling1','手足1'],['sibling2','手足2'],['sibling3','手足3'],['sibling4','手足4'],
+    ['confirmedRead','確認閱讀'],
+    ['majorTeacherPref1','主修志願1'],['majorTeacherPref2','主修志願2'],['majorTeacherPref3','主修志願3'],
+    ['minorInstrument','副修樂器'],['minorTeacherPref1','副修志願1'],['minorTeacherPref2','副修志願2'],['minorTeacherPref3','副修志願3'],
+    ['submittedAt','送出時間']
+  ];
+  const lines=[cols.map(c=>c[1]).join(',')];
+  submissionsCache.forEach(r=>{
+    lines.push(cols.map(c=>{
+      if(c[0]==='submittedAt') return csvEsc(r.submittedAt?new Date(r.submittedAt).toLocaleString('zh-TW'):'');
+      return csvEsc(r[c[0]]||'');
+    }).join(','));
+  });
+  const blob=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=(cohortId||'export')+'_新生資料.csv'; a.click();
+}
+
+function csvEsc(v){ const s=String(v==null?'':v); return/[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }
+function escHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ── Init ── */
+/* 若 URL 尚未設定則顯示提示 */
+if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
+  document.body.innerHTML = `<div style="font-family:sans-serif;max-width:560px;margin:80px auto;padding:32px;
+    background:#fff8f0;border:2px solid #f4a261;border-radius:12px;line-height:1.8">
+    <div style="font-size:32px;margin-bottom:8px">⚠️</div>
+    <h2 style="margin:0 0 12px;color:#c2410c">尚未設定 API 網址</h2>
+    <p>請用文字編輯器開啟此 HTML 檔案，找到以下這行並填入你的 Apps Script 部署網址：</p>
+    <code style="display:block;background:#1a1d2e;color:#f4a261;padding:12px 16px;
+      border-radius:8px;font-size:13px;margin:12px 0;word-break:break-all">
+      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/你的ID/exec";
+    </code>
+    <p style="font-size:13px;color:#6b6555">取得方式：Apps Script → 部署 → 管理部署作業 → 複製「網頁應用程式」網址</p>
+  </div>`;
+} else {
+  loadConfig();
+}
+</script>
+</body>
+</html>
