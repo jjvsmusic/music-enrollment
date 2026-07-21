@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>莊敬高職 新生資料建置｜音樂科</title>
+<title>新生資料建置｜音樂科</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -153,6 +153,7 @@ tbody tr:hover{background:#fbf6ea;}
 .overlay{position:fixed;inset:0;background:rgba(32,35,43,.55);display:flex;align-items:center;justify-content:center;z-index:50;}
 .overlay .box{background:var(--paper-raised);padding:22px 28px;border-radius:10px;font-size:14px;}
 .char-count{font-size:11.5px;color:#8a836e;text-align:right;margin-top:4px;}
+.invalid{border-color:var(--maroon) !important;background:#fdf3f2 !important;}
 [hidden]{display:none !important;}
 </style>
 </head>
@@ -568,7 +569,7 @@ tbody tr:hover{background:#fbf6ea;}
 /* ★★★ 請貼上你 Apps Script 部署後的網頁應用程式網址（結尾 /exec） ★★★
    取得方式：Apps Script 編輯器 → 右上「部署」→ 新增部署作業 → 網頁應用程式
    → 執行身分：我／存取權限：所有人 → 部署後複製網址貼在下面 */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzh40d2cjt-rmtAiaU1L_M_WCC6GL7pRM8ov207TZZ8Voom7A4tsZ_iY6EkjbhDNOrYFQ/exec";
+const APPS_SCRIPT_URL = "貼上你的 Apps Script 網頁應用程式網址";
 
 let instruments = {}, teachers = {}, cohorts = {}, activeCohortId = null;
 let submissionsCache = [];
@@ -866,6 +867,7 @@ function onPhotoChange(e){
     const url=evt.target.result;
     photoBase64=url.split(',')[1];
     document.getElementById('photoPreview').innerHTML='<img src="'+url+'" alt="預覽">';
+    document.getElementById('photoPreview').classList.remove('invalid');
   };
   reader.readAsDataURL(file);
 }
@@ -886,38 +888,102 @@ function resolveRankValue(which, instId, rawVal, n){
   return tName(instId, rawVal);
 }
 function gv(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+function markInvalid(id){ const el=document.getElementById(id); if(el) el.classList.add('invalid'); }
+function clearInvalid(){ document.querySelectorAll('.invalid').forEach(el=>el.classList.remove('invalid')); }
+document.getElementById('studentView').addEventListener('input', e=>{ if(e.target.classList&&e.target.classList.contains('invalid')) e.target.classList.remove('invalid'); });
+document.getElementById('studentView').addEventListener('change', e=>{ if(e.target.classList&&e.target.classList.contains('invalid')) e.target.classList.remove('invalid'); });
 
 /* ── Submit ── */
 function submitStudent(){
   const msg=document.getElementById('studentMsg');
-  const name=gv('f_name');
-  const majorInst=document.getElementById('majorInstrument').value;
-  const minorInst=document.getElementById('minorInstrument').value;
-  const confirmed=document.getElementById('f_confirmedRead').checked;
+  clearInvalid();
+  const missing=[]; // [labelText, elementIdOrNull]
 
-  if(!name){   msg.innerHTML='<div class="msg err">請填寫學生姓名。</div>'; return; }
-  if(!majorInst){ msg.innerHTML='<div class="msg err">請選擇主修樂器。</div>'; return; }
+  const name=gv('f_name'); if(!name) missing.push(['學生姓名','f_name']);
+  if(!gv('f_email')) missing.push(['電子郵件地址','f_email']);
+  if(!document.getElementById('f_gender').value) missing.push(['性別','f_gender']);
+  if(!gv('f_birthDate')) missing.push(['出生年月日','f_birthDate']);
+  if(!gv('f_nationalId')) missing.push(['學生身份證號','f_nationalId']);
+  if(!document.getElementById('f_bloodType').value) missing.push(['血型','f_bloodType']);
+  if(!gv('f_lineId')) missing.push(['學生 LINE ID','f_lineId']);
+  const hasIllness=radio('f_hasIllness');
+  if(!hasIllness) missing.push(['有無特殊疾病或慢性病（請選是或否）',null]);
+  if(hasIllness==='有' && !gv('f_illnessDetail')) missing.push(['疾病說明（已勾選「有」）','f_illnessDetail']);
+
+  if(!gv('f_juniorHighSchool')) missing.push(['畢業國中','f_juniorHighSchool']);
+  if(!gv('f_examScoreNote')) missing.push(['會考成績','f_examScoreNote']);
+
+  if(!gv('f_studentPhone')) missing.push(['學生行動電話','f_studentPhone']);
+  if(!gv('f_mailZip')) missing.push(['通訊郵遞區號','f_mailZip']);
+  if(!gv('f_mailCity')) missing.push(['通訊縣市','f_mailCity']);
+  if(!gv('f_mailDistrict')) missing.push(['通訊鄉鎮區','f_mailDistrict']);
+  if(!gv('f_mailAddress')) missing.push(['通訊詳細地址','f_mailAddress']);
+  if(!gv('f_regZip')) missing.push(['戶籍郵遞區號','f_regZip']);
+  if(!gv('f_regCity')) missing.push(['戶籍縣市','f_regCity']);
+  if(!gv('f_regDistrict')) missing.push(['戶籍鄉鎮區','f_regDistrict']);
+  if(!gv('f_regAddress')) missing.push(['戶籍詳細地址','f_regAddress']);
+
+  if(!gv('f_fatherName')) missing.push(['父親姓名','f_fatherName']);
+  if(!gv('f_fatherPhone')) missing.push(['父親行動電話','f_fatherPhone']);
+  if(!gv('f_fatherJob')) missing.push(['父親職業','f_fatherJob']);
+  if(!document.getElementById('f_fatherStatus').value) missing.push(['父親狀態','f_fatherStatus']);
+  if(!gv('f_motherName')) missing.push(['母親姓名','f_motherName']);
+  if(!gv('f_motherPhone')) missing.push(['母親行動電話','f_motherPhone']);
+  if(!gv('f_motherJob')) missing.push(['母親職業','f_motherJob']);
+  if(!document.getElementById('f_motherStatus').value) missing.push(['母親狀態','f_motherStatus']);
+  if(!document.getElementById('f_familyStatus').value) missing.push(['家庭關係狀況','f_familyStatus']);
+
+  if(!gv('f_guardianName')) missing.push(['監護人姓名','f_guardianName']);
+  if(!gv('f_guardianRelation')) missing.push(['監護人稱謂','f_guardianRelation']);
+  if(!gv('f_guardianJob')) missing.push(['監護人職業','f_guardianJob']);
+  if(!gv('f_guardianHomePhone') && !gv('f_guardianMobile')){
+    missing.push(['監護人電話（住宅電話或行動電話請至少填一項）','f_guardianMobile']);
+  }
+
+  if(!photoBase64) missing.push(['大頭照上傳','photoPreview']);
+
+  const majorInst=document.getElementById('majorInstrument').value;
+  if(!majorInst) missing.push(['主修樂器','majorInstrument']);
+  if(!gv('f_majorYears')) missing.push(['主修樂器學習時長','f_majorYears']);
   const majorPrefIds=collectRanks('major');
-  if(!majorPrefIds.filter(Boolean).length){ msg.innerHTML='<div class="msg err">請至少選擇一位主修老師志願。</div>'; return; }
+  if(!majorPrefIds.filter(Boolean).length) missing.push(['主修老師志願（請至少選擇一位）',null]);
 
   /* 「其他」選項必須填寫文字 */
   for(let n=1;n<=3;n++){
     const mSel=document.getElementById('majorRank'+n);
     if(mSel&&mSel.value==='__other__'){
       const txt=document.getElementById('majorRankOther'+n);
-      if(!txt||!txt.value.trim()){ msg.innerHTML=`<div class="msg err">主修第 ${n} 志願選擇「其他」時，請填寫老師姓名。</div>`; return; }
+      if(!txt||!txt.value.trim()) missing.push([`主修第 ${n} 志願選擇「其他」時的老師姓名`,'majorRankOther'+n]);
     }
   }
+  const minorInst=document.getElementById('minorInstrument').value;
   if(minorInst){
     for(let n=1;n<=3;n++){
       const nSel=document.getElementById('minorRank'+n);
       if(nSel&&nSel.value==='__other__'){
         const txt=document.getElementById('minorRankOther'+n);
-        if(!txt||!txt.value.trim()){ msg.innerHTML=`<div class="msg err">副修第 ${n} 志願選擇「其他」時，請填寫老師姓名。</div>`; return; }
+        if(!txt||!txt.value.trim()) missing.push([`副修第 ${n} 志願選擇「其他」時的老師姓名`,'minorRankOther'+n]);
       }
     }
   }
-  if(!confirmed){ msg.innerHTML='<div class="msg err">請勾選確認已詳細閱讀並填寫完所有內容。</div>'; return; }
+
+  if(!radio('f_dorm')) missing.push(['是否住宿（請選是或否）',null]);
+  if(!gv('f_commute')) missing.push(['通勤方式','f_commute']);
+  if(!radio('f_partTimeJob')) missing.push(['是否打工（請選是或否）',null]);
+
+  if(!gv('f_siblingOrder')) missing.push(['手足排行','f_siblingOrder']);
+  if(!gv('f_sibling1')) missing.push(['手足狀況（無手足請填「無」）','f_sibling1']);
+
+  const confirmed=document.getElementById('f_confirmedRead').checked;
+  if(!confirmed) missing.push(['確認閱讀勾選',null]);
+
+  if(missing.length){
+    missing.forEach(m=>{ if(m[1]) markInvalid(m[1]); });
+    msg.innerHTML='<div class="msg err"><strong>請完成以下項目再送出：</strong><ul style="margin:8px 0 0;padding-left:20px;">'
+      + missing.map(m=>'<li>'+escHtml(m[0])+'</li>').join('') + '</ul></div>';
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
 
   const minorPrefIds=minorInst?collectRanks('minor'):[];
 
@@ -978,6 +1044,7 @@ function submitStudent(){
     document.getElementById('studentView').querySelectorAll('input[type=checkbox],input[type=radio]').forEach(el=>el.checked=false);
     document.getElementById('illnessDetailWrap').hidden=true;
     document.getElementById('photoPreview').innerHTML='尚未上傳';
+    clearInvalid();
     photoBase64=''; photoMimeType='';
     onInstrumentChange('major'); onInstrumentChange('minor');
     btn.disabled=false;
